@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +31,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <nav>
-          <ul className="flex gap-4 p-4">
+        <nav className="flex justify-between items-center p-4 bg-background text-foreground border-b">
+          <Button>
+            <HamburgerMenuIcon />
+          </Button>
+          <div className="flex items-center justify-center gap-2">
+            <span className="text-2xl font-bold">OpenAPI Wrapper</span>
+          </div>
+          <div className="flex">
+            <Avatar className="border-2 ">
+              <AvatarImage src={"image/avatar.jpeg"} />
+            </Avatar>
+          </div>
+
+          {/* <ul className="flex gap-4 p-4">
             <li>Home</li>
             <li>About</li>
             <li>Contact</li>
-          </ul>
+          </ul> */}
         </nav>
         {children}
       </body>
