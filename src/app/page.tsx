@@ -31,16 +31,6 @@ export default function Home() {
           <h1 className="text-4xl">Content</h1>
           <UserMessage />
           <BotMessage />
-          <UserMessage />
-          <BotMessage />
-          <UserMessage />
-          <BotMessage />
-          <UserMessage />
-          <BotMessage />
-          <UserMessage />
-          <BotMessage />
-          <UserMessage />
-          <BotMessage />
         </div>
       </div>
 
