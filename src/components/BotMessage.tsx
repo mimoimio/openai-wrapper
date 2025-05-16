@@ -3,24 +3,38 @@
 import MarkdownViewer from "@/components/MarkdownViewer";
 import { useEffect, useState } from "react";
 
-const getMessage = async (setMessage: (msg: string) => void, setLoading: (loading: boolean) => void) => {
-    const res = await fetch("/api/response");
-    if (!res.ok) {
-        throw new Error("Failed to fetch data");
-    }
-    const data = await res.json();
-    console.log(data);
-    setMessage(data.message);
-    setLoading(false);
-};
+export default function BotMessage({ message, loading }: { message: string, loading: boolean }) {
 
+    // const getMessage = async (setMessage: (msg: string) => void, setLoading: (loading: boolean) => void) => {
+    //     const res = await fetch("/api/response",
+    //         {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 messages:
+    //                     [{ role: "user", content: "briefly compare 2 philosophy of nextjs and laravel side by side. Then write a line of code that you're most likely to find when working on each." }],
+    //             })
 
-export default function BotMessage() {
-    const [message, setMessage] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-        getMessage(setMessage, setLoading)
-    }, [])
+    //         }
+    //     );
+    //     if (!res.ok) {
+    //         throw new Error("Failed to fetch data");
+    //     }
+    //     const data = await res.json();
+    //     console.log(data);
+    //     setMessage(data.message);
+    //     setLoading(false);
+    // };
+    // const [message, setMessage] = useState<string>("Yakikaku na nu nona");
+    // const [loading, setLoading] = useState<boolean>(false);
+    // useEffect(() => {
+    //     // getMessage(setMessage, setLoading)
+    //     setMessage("Yeah")
+    //     setLoading(false)
+    // }, [])
+
     return (
         <div className="flex justify-start">
             <div className="flex flex-col w-full max-w-xl bg-background border-2 rounded-lg p-4">
