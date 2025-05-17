@@ -1,12 +1,22 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import UserMessage from "./UserMessage";
 import BotMessage from "./BotMessage";
 
 export default function ChatInput() {
-    const getMessage = async (inputValue: string, setMessage: (msg: string) => void, setLoading: (loading: boolean) => void) => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const [inputValue, setInputValue] = useState("");
+    const [msgPairs, setMsgPairs] = useState<{ user: string, bot: string }[]>([]);
+    const [currentPair, setCurrentPair] = useState<{ user: string, bot: string } | null>(null);
+    const [messages, setMessages] = useState<{ role: string, content: string }[]>([{ role: "system", content: "You are a helpful assistant." }]);
+
+    const getMessage = async (inputValue: string) => {
         setLoading(true);
+        setCurrentPair({ user: inputValue, bot: "" });
+        const newMessages = [...messages, { role: "user", content: inputValue }]
+        setMessages(newMessages);
+        console.log(newMessages);
         const res = await fetch("/api/response",
             {
                 method: "POST",
@@ -14,8 +24,7 @@ export default function ChatInput() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    messages:
-                        [{ role: "user", content: inputValue }],
+                    messages: newMessages,
                 })
 
             }
@@ -25,21 +34,41 @@ export default function ChatInput() {
             throw new Error("Failed to fetch data");
         }
         const data = await res.json();
-        console.log(data);
-        setMessage(data.message);
+        setMsgPairs((prev) => [...prev, {
+            user: inputValue,
+            bot: data.message
+        }])
+        setMessages((prev) => [...prev, { role: "assistant", content: data.message }])
+        setCurrentPair(null);
         setLoading(false);
+        console.log("Shshshshshs")
     };
-    const [message, setMessage] = useState<string>("");
-    const [loading, setLoading] = useState<boolean>(false);
-    const [inputValue, setInputValue] = useState("");
-
     return (
         <>
             <div className="border h-full w-full overflow-y-auto">
                 <div className="max-w-2xl mx-auto flex flex-col gap-4 justify-start p-4 ">
                     <h1 className="text-4xl">Content</h1>
-                    <UserMessage />
-                    <BotMessage message={message} loading={loading} />
+                    {/* <UserMessage message="" />
+                    <BotMessage message={message} loading={loading} /> */}
+                    {
+                        msgPairs.map(({ user, bot }, index) => {
+                            return (
+                                <div key={index} className="flex flex-col gap-2">
+                                    <UserMessage message={user} />
+                                    <BotMessage message={bot} loading={false} />
+                                </div>
+                                // <BotMessage message={bot} loading={loading} />
+                            )
+                        })
+                    }
+
+                    {currentPair &&
+                        <>
+                            <UserMessage message={currentPair.user} />
+                            <BotMessage message={currentPair.bot} loading={loading} />
+                        </>
+                    }
+
                 </div>
             </div>
             <div className="mx-auto w-full max-w-2xl h-fit p-4 flex ">
@@ -53,7 +82,7 @@ export default function ChatInput() {
                         if (e.key === "Enter") {
                             e.preventDefault();
                             // Call the function to send the message
-                            getMessage(inputValue, setMessage, setLoading);
+                            getMessage(inputValue);
                             setInputValue(""); // Clear the input field after sending
                         }
                     }}
