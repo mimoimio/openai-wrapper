@@ -1,8 +1,8 @@
-import OpenAI from "openai";
+// import OpenAI from "openai";
 // const client = new OpenAI();
 
 export async function GET(request: Request) {
-    // console.log(await request.json());
+    console.log(await request.json());
     // // const data = await request.json();
     // const response = await client.chat.completions.create({
     //     model: "gpt-3.5-turbo",
@@ -15,6 +15,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+    console.log(await request.json());
     // const data = await request.json();
     // const response = await client.chat.completions.create({
     //     model: "gpt-3.5-turbo",
