@@ -1,7 +1,7 @@
 "use client"
 
 import MarkdownViewer from "@/components/MarkdownViewer";
-import { useEffect, useState } from "react";
+
 
 export default function BotMessage({ message, loading }: { message: string, loading: boolean }) {
 
