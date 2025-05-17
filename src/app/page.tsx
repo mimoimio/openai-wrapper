@@ -1,10 +1,7 @@
-import BotMessage from "@/components/BotMessage";
 import { AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import UserMessage from "@/components/UserMessage";
 import { Avatar } from "@/components/ui/avatar";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
 import { ModeToggle } from "@/components/ModeToggle";
 import ChatInput from "@/components/ChatInput";
 
