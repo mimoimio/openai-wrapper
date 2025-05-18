@@ -1,6 +1,8 @@
 import { getPB } from "@/lib/pocketbase";
 import { redirect } from "next/navigation";
 export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+    console.log(searchParams);
     const pb = await getPB();
     const chat = { title: "New Chat" };
     const chat_record = await pb.collection("chats").create(chat);

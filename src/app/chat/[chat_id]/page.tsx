@@ -2,7 +2,7 @@ import ChatInterface from "@/components/ChatInterface";
 import { getPB } from "@/lib/pocketbase";
 import type { MessageModel } from "@/lib/MessageModel";
 
-export default async function ChatPage({ params }: { params: { chat_id: string } }) {
+export default async function ChatPage({ params }: { params: Promise<{ chat_id: string }> }) {
     const { chat_id } = await params;
     try {
         const pb = await getPB()

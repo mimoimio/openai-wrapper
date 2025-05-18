@@ -1,5 +1,3 @@
-import ChatInterface from "@/components/ChatInterface";
-import Header from "@/components/Header";
 import { getPB } from "@/lib/pocketbase";
 import Link from "next/link";
 

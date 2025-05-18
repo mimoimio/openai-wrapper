@@ -1,4 +1,3 @@
-import { MessageModel } from "@/lib/MessageModel";
 import { getPB } from "@/lib/pocketbase";
 import OpenAI from "openai";
 const client = new OpenAI();
