@@ -15,11 +15,27 @@ export default function Header() {
                 <SheetContent side="left" className="">
                     <SheetHeader>
                         <SheetTitle className="italic text-2xl text-shadow-md text-shadow-foreground">OpenAPI Wrapper</SheetTitle>
-                        <SheetDescription>
-                            <p className="text-sm">A simple wrapper for OpenAPI</p>
-                            <p className="text-sm">Made with Next.js, Radix UI, and Tailwind CSS</p>
+                        <SheetDescription className="text-sm">
+                            A simple wrapper for OpenAPI
                         </SheetDescription>
                     </SheetHeader>
+                    <ul className="flex flex-col gap-2 p-4">
+                        <li className=" flex ">
+                            <Link href={"/"} className="w-full bg-background text-foreground border-b hover:bg-accent px-2 rounded-sm">Home</Link>
+                        </li>
+                        <li className=" flex ">
+                            <Link href={"/"} className="w-full bg-background text-foreground border-b hover:bg-accent px-2 rounded-sm">Home</Link>
+                        </li>
+                        <li className=" flex ">
+                            <Link href={"/"} className="w-full bg-background text-foreground border-b hover:bg-accent px-2 rounded-sm">Home</Link>
+                        </li>
+                        <li className=" flex ">
+                            <Link href={"/"} className="w-full bg-background text-foreground border-b hover:bg-accent px-2 rounded-sm">Home</Link>
+                        </li>
+                        <li className=" flex ">
+                            <Link href={"/"} className="w-full bg-background text-foreground border-b hover:bg-accent px-2 rounded-sm">Home</Link>
+                        </li>
+                    </ul>
                 </SheetContent>
             </Sheet>
             <div className="flex items-center justify-center gap-2">

@@ -10,8 +10,7 @@ export default async function ChatPage({ params }: { params: Promise<{ chat_id: 
         const messages: MessageModel[] = await pb.collection("messages").getFullList<MessageModel>({
             filter: `chat_id="${chat_id}"`,
             sort: "created",
-        })
-        console.log(messages);
+        });
 
         return (
             <>
