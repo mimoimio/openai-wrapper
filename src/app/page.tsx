@@ -1,50 +1,33 @@
-import { AvatarImage } from "@/components/ui/avatar";
-import { Avatar } from "@/components/ui/avatar";
-import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-import { ModeToggle } from "@/components/ModeToggle";
-import ChatInput from "@/components/ChatInput";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import ChatInterface from "@/components/ChatInterface";
+import Header from "@/components/Header";
+import { getPB } from "@/lib/pocketbase";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const pb = await getPB();
+  const chats = await pb.collection("chats").getFullList();
+
   return (
     <>
-      <nav className="flex justify-between items-center p-4 bg-background text-foreground border-b h-fit">
-        <Sheet >
-          <SheetTrigger className="bg-foreground text-background p-2 rounded-md">
-            <HamburgerMenuIcon className="" />
-          </SheetTrigger>
-          <SheetContent side="left" className="">
-            <SheetHeader>
-              <SheetTitle>Are you absolutely sure?</SheetTitle>
-              <SheetDescription>
-                This action cannot be undone. This will permanently delete your account
-                and remove your data from our servers.
-              </SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-        <div className="flex items-center justify-center gap-2">
-          <span className="text-2xl font-bold">OpenAPI Wrapper</span>
-        </div>
-        <div className="flex gap-4">
-          <ModeToggle />
-          <Avatar className="border-2 ">
-            <AvatarImage src={"image/avatar.jpeg"} />
-          </Avatar>
-        </div>
-
-      </nav>
-      {/* 
-      <div className="border h-full w-full overflow-y-auto">
-        <div className="max-w-2xl mx-auto flex flex-col gap-4 justify-start p-4 ">
-          <h1 className="text-4xl">Content</h1>
-          <UserMessage />
-          <BotMessage message="Lol" loading={false} />
-        </div>
-      </div> */}
-
-      <ChatInput />
-
+      <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 p-4">
+        <Link href={"/api/newchat"} className="bg-foreground text-background flex w-fit p-2 px-4 rounded-xl">New Chat</Link>
+        {
+          chats.map((chat) => {
+            return (
+              <div key={chat.id}>
+                <Link href={`/chat/${chat.id}`} className="flex flex-col gap-2 p-4 rounded-4xl shadow-foreground shadow-md/20">
+                  <h2 className="font-black">{chat.title}</h2>
+                  <p>{chat.created}</p>
+                </Link>
+              </div>
+            )
+          })
+        }
+      </div>
+      {/* <Header />
+      <ChatInterface
+        chat={{ id: "1", title: "Test Chat" }}
+        chatHistory={[{ id: null, chat_id: "1", role: "system", content: "You are a helpful assistant. You are to console the user with their worries." }]} /> */}
     </>
   );
 }
