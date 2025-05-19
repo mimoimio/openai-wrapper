@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import { getPB } from "@/lib/pocketbase";
 import Link from "next/link";
 
@@ -7,8 +8,9 @@ export default async function Home() {
 
   return (
     <>
+      <Header />
       <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 p-4">
-        <Link href={"/api/newchat"} className="bg-foreground text-background flex w-fit p-2 px-4 rounded-xl">New Chat</Link>
+        <Link href={"/api/chat"} className="bg-foreground text-background flex w-fit p-2 px-4 rounded-xl">New Chat</Link>
         {
           chats.map((chat) => {
             return (
@@ -22,10 +24,6 @@ export default async function Home() {
           })
         }
       </div>
-      {/* <Header />
-      <ChatInterface
-        chat={{ id: "1", title: "Test Chat" }}
-        chatHistory={[{ id: null, chat_id: "1", role: "system", content: "You are a helpful assistant. You are to console the user with their worries." }]} /> */}
     </>
   );
 }

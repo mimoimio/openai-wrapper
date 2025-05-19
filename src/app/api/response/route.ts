@@ -41,6 +41,7 @@ export async function POST(request: Request) {
             model: "gpt-3.5-turbo",
             messages,
         })
+        console.log("🥴🥴🥴", response)
         const message = response.choices[0].message.content;
 
         // add bot message to the database

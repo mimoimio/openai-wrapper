@@ -1,6 +1,7 @@
 import ChatInterface from "@/components/ChatInterface";
 import { getPB } from "@/lib/pocketbase";
 import type { MessageModel } from "@/lib/MessageModel";
+import Header from "@/components/Header";
 
 export default async function ChatPage({ params }: { params: Promise<{ chat_id: string }> }) {
     const { chat_id } = await params;
@@ -14,6 +15,7 @@ export default async function ChatPage({ params }: { params: Promise<{ chat_id: 
 
         return (
             <>
+                <Header chat={chat} />
                 <ChatInterface chatHistory={messages} chat={chat} />
             </>
         )

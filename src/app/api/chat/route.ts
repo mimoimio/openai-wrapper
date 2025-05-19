@@ -11,3 +11,10 @@ export async function GET(request: Request) {
     const chat_id = chat_record.id;
     return redirect(`/chat/${chat_id}`);
 }
+
+export async function PUT(request: Request) {
+    const chat = await request.json();
+    const pb = await getPB();
+    const chat_record = await pb.collection("chats").update(chat.id, { title: chat.title });
+    return new Response(JSON.stringify(chat_record))
+}
