@@ -23,3 +23,11 @@ export async function PUT(request: Request) {
     const chat_record = await pb.collection("chats").update(chat.id, { title: chat.title });
     return new Response(JSON.stringify(chat_record))
 }
+
+export async function DELETE(request: Request) {
+    const data = await request.json();
+    const chat_id = data.chat_id
+    const pb = await getPB();
+    pb.collection("chats").delete(chat_id);
+    return new Response(JSON.stringify({ chat_id }))
+}

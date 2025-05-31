@@ -1,19 +1,38 @@
+"use client"
+import DeleteChatButton from "@/components/DeleteChatButton";
 import Header from "@/components/Header";
 import NewChatLink from "@/components/NewChatLink";
-import { Button } from "@/components/ui/button";
-import { getPB } from "@/lib/pocketbase";
 import Link from "next/link";
+import { RecordModel } from "pocketbase";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-  const pb = await getPB();
-  const chats = await pb.collection("chats").getFullList();
+
+export default function Home() {
+  const [chats, setChats] = useState<RecordModel[] | null>(null)
+  useEffect(() => {
+    const call = async () => {
+      const res = await fetch("api/chat/all", { method: "GET" })
+      const data = await res.json()
+      const chats = data.chats
+      setChats(chats)
+    }
+    call()
+  }, [])
+  function deleteChat(chat_id: string) {
+    setChats(prev =>
+      prev
+        ? prev.filter(chat => chat.id !== chat_id)
+        : prev // In case prev is null
+    );
+  }
+
 
   return (
     <>
       <Header />
       <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 p-4">
         <NewChatLink />
-        {
+        {chats &&
           chats.map((chat) => {
             return (
               <div key={chat.id} className="flex">
@@ -21,7 +40,7 @@ export default async function Home() {
                   <h2 className="font-black">{chat.title}</h2>
                   <p>{chat.created}</p>
                 </Link>
-                <Button>Delete</Button>
+                <DeleteChatButton chat_id={chat.id} onDelete={deleteChat} />
               </div>
             )
           })
