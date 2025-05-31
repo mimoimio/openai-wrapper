@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     console.log(await request.json());
     // const data = await request.json();
     const response = await client.chat.completions.create({
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o",
         messages: [{ role: "user", content: "Hello." }],
     });
     const message = response.choices[0].message.content;

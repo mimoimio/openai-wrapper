@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import NewChatLink from "@/components/NewChatLink";
 import { Button } from "@/components/ui/button";
 import { getPB } from "@/lib/pocketbase";
 import Link from "next/link";
@@ -11,7 +12,7 @@ export default async function Home() {
     <>
       <Header />
       <div className="max-w-2xl w-full mx-auto flex flex-col gap-4 p-4">
-        <Link href={"/api/chat"} className="bg-foreground text-background flex w-fit p-2 px-4 rounded-xl">New Chat</Link>
+        <NewChatLink />
         {
           chats.map((chat) => {
             return (
