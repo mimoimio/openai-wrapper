@@ -11,7 +11,7 @@ export default function Home() {
   const [chats, setChats] = useState<RecordModel[] | null>(null)
   useEffect(() => {
     const call = async () => {
-      const res = await fetch("api/chat/all", { method: "GET" })
+      const res = await fetch("api/chat/all", { method: "GET", cache: "no-cache" })
       const data = await res.json()
       const chats = data.chats
       setChats(chats)
