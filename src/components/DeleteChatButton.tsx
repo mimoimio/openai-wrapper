@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 export default function DeleteChatButton({ chat_id, onDelete }: { chat_id: string, onDelete(chat_id: string): void }) {
     return (
         <Button onClick={async (e) => {
+            e.preventDefault()
             e.stopPropagation();
             const response = await fetch("/api/chat",
                 {
