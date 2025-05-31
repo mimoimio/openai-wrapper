@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
 import { getPB } from "@/lib/pocketbase";
 import Link from "next/link";
 
@@ -14,11 +15,12 @@ export default async function Home() {
         {
           chats.map((chat) => {
             return (
-              <div key={chat.id}>
-                <Link href={`/chat/${chat.id}`} className="flex flex-col gap-2 p-4 rounded-4xl shadow-foreground shadow-md/20">
+              <div key={chat.id} className="flex">
+                <Link href={`/chat/${chat.id}`} className="flex flex-col gap-2 p-4 rounded-4xl shadow-foreground shadow-md/20 w-full">
                   <h2 className="font-black">{chat.title}</h2>
                   <p>{chat.created}</p>
                 </Link>
+                <Button>Delete</Button>
               </div>
             )
           })

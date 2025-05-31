@@ -15,8 +15,9 @@ export default function Header({ chat }: { chat?: { id: string, title: string } 
             const res = await fetch("/api/chat", {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: chatState?.id, title: chatState?.title })
-            });
+                body: JSON.stringify({ id: chatState?.id, title: chatState?.title }),
+                cache: "no-store",
+            },);
             if (!res.ok) {
                 throw new Error("Failed to fetch data");
             }
