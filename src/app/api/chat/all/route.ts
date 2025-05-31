@@ -1,8 +1,8 @@
 import { getPB } from "@/lib/pocketbase";
 
 export async function GET(request: Request) {
-    console.log(await request.json())
     try {
+        console.log(request)
         const pb = await getPB();
         const chats = await pb.collection("chats").getFullList();
         return new Response(
